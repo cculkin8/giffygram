@@ -1,24 +1,64 @@
 {
   "users": [
-    "Carter"
-  ],
-  "posts": [
     {
-      "id": 2,
-      "imageURL": "https://media.giphy.com/media/26xBI73gWquCBBCDe/giphy.gif",
-      "userId": 6,
-      "description": "Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.\n\nDuis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.",
-      "timestamp": 1561695022812,
-      "title": "Enhanced global utilisation"
+      "name": "Brenda",
+      "email": "brenda@brenda.com",
+      "id": 1
     },
     {
+      "name": "Bryan",
+      "email": "bryan@bn.com",
+      "id": 2
+    },
+    {
+      "name": "Melissa",
+      "email": "melissa@home.com",
       "id": 3
     },
     {
+      "name": "Red",
+      "email": "red@home.com",
+      "id": 4
+    },
+    {
+      "name": "Red",
+      "email": "red@home.com",
+      "id": 5
+    }
+  ],
+  "posts": [
+    {
+      "title": "Dr Cox reminding me of the Weather API",
+      "imageURL": "https://media.giphy.com/media/h36vh423PiV9K/giphy.gif",
+      "description": "Read the title",
+      "userId": 1,
+      "timestamp": 1616518240872,
+      "id": 1
+    },
+    {
+      "title": "Closing zoom on friday",
+      "imageURL": "https://media.giphy.com/media/YjJZKbm2kNN7i/giphy.gif",
+      "description": "All stress lifts off my shoulders",
+      "userId": 1,
+      "timestamp": 1616518321341,
+      "id": 2
+    },
+    {
+      "title": "Rage and contempt",
+      "imageURL": "https://media.giphy.com/media/lz3D7uhUpMxlm/giphy.gif",
+      "description": "This is exactly how I feel whenever we have random speakers join to talk to us while we're finishing up a group project",
+      "userId": 1,
+      "timestamp": 1616518417740,
+      "id": 3
+    },
+    {
+      "title": "July 20th, 2020",
+      "imageURL": "https://media.giphy.com/media/HblNqnye15mes/giphy.gif",
+      "description": "It was hot as hell",
+      "userId": 1,
+      "timestamp": 1616518592764,
       "id": 4
     }
   ],
-  "messages": [
-    "I think postman might hate me"
-  ]
+  "messages": []
 }
