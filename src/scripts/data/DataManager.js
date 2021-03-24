@@ -9,16 +9,20 @@ export const usePostCollection = () => {
   //Best practice: we don't want to alter the original state, so
   //make a copy of it and then return it
   //The spread operator makes this quick work
-  return [...postCollection];
+  return 
+  [...postCollection];
 }
 export const getPosts = () => {
-  return fetch("http://localhost:8088/posts")
-    .then(response => response.json())
-    .then(parsedResponse => {
-      postCollection = parsedResponse
-      return parsedResponse;
-    })
-}
+	const userId = getLoggedInUser().id
+	return fetch(`http://localhost:8088/posts?_expand=user`)
+	  .then(response => response.json())
+	  .then(parsedResponse => {
+		console.log("data with user", parsedResponse)
+		postCollection = parsedResponse
+		return parsedResponse;
+	  })
+  }
+
 export const createPost = postObj => {
 	return fetch("http://localhost:8088/posts", {
 		method: "POST",
@@ -97,3 +101,11 @@ export const loginUser = (userObj) => {
 	  return getLoggedInUser();
 	})
 }
+export const getCreator = () => {
+	return fetch("http://localhost:8088/users")
+	  .then(response => response.json())
+	  .then(parsedResponse => {
+		postCollection = parsedResponse
+		return parsedResponse;
+	  })
+  }

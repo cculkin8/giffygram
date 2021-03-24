@@ -1,88 +1,45 @@
 {
   "users": [
     {
-      "name": "Brenda",
-      "email": "brenda@brenda.com",
+      "name": "carter",
+      "email": "carter@email.com",
       "id": 1
     },
     {
-      "name": "Bryan",
-      "email": "bryan@bn.com",
+      "name": "clover",
+      "email": "clover@dog.com",
       "id": 2
     },
     {
-      "name": "Melissa",
-      "email": "melissa@home.com",
+      "name": "Jeremy Clarkson",
+      "email": "top@gear.com",
       "id": 3
-    },
-    {
-      "name": "Red",
-      "email": "red@home.com",
-      "id": 4
-    },
-    {
-      "name": "Red",
-      "email": "red@home.com",
-      "id": 5
-    },
-    {
-      "name": "test",
-      "email": "test@home.com",
-      "id": 6
-    },
-    {
-      "name": "testing",
-      "email": "carter.culkin@gmail.com",
-      "id": 7
     }
   ],
   "posts": [
     {
-      "title": "Dr Cox reminding me of the Weather API",
-      "imageURL": "https://media.giphy.com/media/h36vh423PiV9K/giphy.gif",
-      "description": "Read the title",
+      "title": "please work",
+      "imageURL": "https://media.giphy.com/media/JUvKeGK6BGUIfbSJy1/giphy.gif",
+      "description": "please work properly this time",
       "userId": 1,
-      "timestamp": 1616518240872,
+      "timestamp": 1616618086186,
       "id": 1
     },
     {
-      "title": "Closing zoom on friday",
-      "imageURL": "https://media.giphy.com/media/YjJZKbm2kNN7i/giphy.gif",
-      "description": "All stress lifts off my shoulders",
-      "userId": 1,
-      "timestamp": 1616518321341,
+      "title": "Why is this not working",
+      "imageURL": "https://media.giphy.com/media/eiMsjp1sXTIUdhAp8J/giphy.gif",
+      "description": "I'm getting undefined when I'm trying to view other people's posts?",
+      "userId": 2,
+      "timestamp": 1616618205984,
       "id": 2
     },
     {
-      "title": "Rage and contempt",
-      "imageURL": "https://media.giphy.com/media/lz3D7uhUpMxlm/giphy.gif",
-      "description": "This is exactly how I feel whenever we have random speakers join to talk to us while we're finishing up a group project",
-      "userId": 1,
-      "timestamp": 1616518417740,
+      "title": "Top Gear was only watchable when I worked there",
+      "imageURL": "https://media.giphy.com/media/loXSKMDAs461EJnmSE/giphy.gif",
+      "description": "As much as I love Chris Harris, the rest don't make up for me.",
+      "userId": 3,
+      "timestamp": 1616618995211,
       "id": 3
-    },
-    {
-      "title": "July 20th, 2020",
-      "imageURL": "https://media.giphy.com/media/HblNqnye15mes/giphy.gif",
-      "description": "It was hot as hell",
-      "userId": 1,
-      "timestamp": 1616518592764,
-      "id": 4
-    },
-    {
-      "title": "TopGear Test",
-      "imageURL": "https://media.giphy.com/media/5FTe65sKNVfEc/giphy.gif",
-      "description": "Testing with topgear!",
-      "userId": 1,
-      "timestamp": 1616529163171,
-      "id": 5
-    },
-    {
-      "title": "test",
-      "imageURL": "https://media.giphy.com/media/JUvKeGK6BGUIfbSJy1/giphy.gif",
-      "description": "I think I've broken something, here is a gif of me troubleshooting",
-      "timestamp": 1616600321992,
-      "id": 6
     }
   ],
   "messages": []
