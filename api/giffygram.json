@@ -24,6 +24,16 @@
       "name": "Red",
       "email": "red@home.com",
       "id": 5
+    },
+    {
+      "name": "test",
+      "email": "test@home.com",
+      "id": 6
+    },
+    {
+      "name": "testing",
+      "email": "carter.culkin@gmail.com",
+      "id": 7
     }
   ],
   "posts": [
@@ -58,6 +68,21 @@
       "userId": 1,
       "timestamp": 1616518592764,
       "id": 4
+    },
+    {
+      "title": "TopGear Test",
+      "imageURL": "https://media.giphy.com/media/5FTe65sKNVfEc/giphy.gif",
+      "description": "Testing with topgear!",
+      "userId": 1,
+      "timestamp": 1616529163171,
+      "id": 5
+    },
+    {
+      "title": "test",
+      "imageURL": "https://media.giphy.com/media/JUvKeGK6BGUIfbSJy1/giphy.gif",
+      "description": "I think I've broken something, here is a gif of me troubleshooting",
+      "timestamp": 1616600321992,
+      "id": 6
     }
   ],
   "messages": []
