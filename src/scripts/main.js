@@ -1,9 +1,14 @@
-import { getUsers, getPosts, usePostCollection, getLoggedInUser, createPost } from "./data/DataManager.js";
+import { getUsers, getPosts, usePostCollection, getLoggedInUser, logoutUser, createPost, setLoggedInUser, loginUser, registerUser } from "./data/DataManager.js";
 import { PostList } from "./feed/PostList.js";
 import { NavBar } from "./nav/NavBar.js";
 import { Footer } from "./nav/Footer.js";
 import { PostEntry } from "./feed/PostEntry.js";
 import {deletePost} from "../scripts/data/DataManager.js";
+import { getSinglePost } from "../scripts/data/DataManager.js";
+import {updatePost} from "../scripts/data/DataManager.js";
+import {PostEdit} from "../scripts/feed/PostEdit.js";
+import {LoginForm} from "../scripts/auth/LoginForm.js"
+import {RegisterForm} from "../scripts/auth/RegisterForm.js"
 /**
  * Main logic module for what should happen on initial page load for Giffygram
  */
@@ -11,16 +16,6 @@ import {deletePost} from "../scripts/data/DataManager.js";
 const applicationElement = document.querySelector(".giffygram");
 const footerElement = document.querySelector("footer");
 
-
-applicationElement.addEventListener("click", (event) => {
-	console.log('click edit');
-	
-	if (event.target.id.startsWith("edit")) {
-		console.log("post clicked", event.target.id.split("--"));
-		console.log("zero index value", event.target.id.split("--")[0]);
-		console.log("one index value, the id is", event.target.id.split("--")[1]);
-	}
-})
 
 applicationElement.addEventListener("change", event => {
 	if (event.target.id === "yearSelection") {
@@ -32,6 +27,14 @@ applicationElement.addEventListener("change", event => {
   })
 
   applicationElement.addEventListener("click", event => {
+	if (event.target.id === "logout") {
+	  logoutUser();
+	  console.log(getLoggedInUser());
+	}
+  })
+
+
+  applicationElement.addEventListener("click", event => {
 	if (event.target.id === "newPost__cancel") {
 		//clear the input fields
 	}
@@ -40,12 +43,9 @@ applicationElement.addEventListener("change", event => {
   applicationElement.addEventListener("click", event => {
 	event.preventDefault();
 	if (event.target.id === "newPost__submit") {
-	//collect the input values into an object to post to the DB
 	  const title = document.querySelector("input[name='postTitle']").value
 	  const url = document.querySelector("input[name='postURL']").value
 	  const description = document.querySelector("textarea[name='postDescription']").value
-	  //we have not created a user yet - for now, we will hard code `1`.
-	  //we can add the current time as well
 	  const postObject = {
 		  title: title,
 		  imageURL: url,
@@ -54,7 +54,6 @@ applicationElement.addEventListener("change", event => {
 		  timestamp: Date.now()
 	  }
   
-	// be sure to import from the DataManager
 		createPost(postObject)
 		.then(response => {
 			console.log("what is the new post response", response)
@@ -64,9 +63,7 @@ applicationElement.addEventListener("change", event => {
   })
   
   const showFilteredPosts = (year) => {
-	//get a copy of the post collection
 	const epoch = Date.parse(`01/01/${year}`);
-	//filter the data
 	const filteredData = usePostCollection().filter(singlePost => {
 	  if (singlePost.timestamp >= epoch) {
 		return singlePost
@@ -84,18 +81,14 @@ const showPostList = () => {
 }
 
 const showNavBar = () => {
-	//Get a reference to the location on the DOM where the nav will display
 	const navElement = document.querySelector("nav");
 	navElement.innerHTML = NavBar();
 }
 const showFooter = () => {
-	//Get a reference to the location on the DOM where the footer will display
 	const footerElement = document.querySelector("footer");
 	footerElement.innerHTML = Footer();
 }
-
 const showPostEntry = () => { 
-	//Get a reference to the location on the DOM where the nav will display
 	const entryElement = document.querySelector(".entryForm");
 	entryElement.innerHTML = PostEntry();
   }
@@ -121,15 +114,63 @@ const showPostEntry = () => {
 		})
 	}
   })
-  const showEdit = (postObj) => {
+  const checkForUser = () => {
+	if (sessionStorage.getItem("user")){
+		setLoggedInUser(JSON.parse(sessionStorage.getItem("user")));
+	  startGiffyGram();
+	}else {
+		 showLoginRegister();
+	}
+}
+//is this working?
+applicationElement.addEventListener("click", event => {
+	event.preventDefault();
+if (event.target.id === "login__submit") {
+  const userObject = {
+	name: document.querySelector("input[name='name']").value,
+	email: document.querySelector("input[name='email']").value
+  }
+  loginUser(userObject)
+  .then(dbUserObj => {
+	if(dbUserObj){
+	  sessionStorage.setItem("user", JSON.stringify(dbUserObj));
+	  startGiffyGram();
+		}else {
+		  const entryElement = document.querySelector(".entryForm");
+		  entryElement.innerHTML = `<p class="center">That user does not exist. Please try again or register for your free account.</p> ${LoginForm()} <hr/> <hr/> ${RegisterForm()}`;
+	}
+  })
+}
+})
+  //is this working?
+const showLoginRegister = () => {
+	showNavBar();
 	const entryElement = document.querySelector(".entryForm");
-	entryElement.innerHTML = PostEdit(postObj);
-  } 
+	//template strings can be used here too
+	entryElement.innerHTML = `${LoginForm()} <hr/> <hr/> ${RegisterForm()}`;
+	//make sure the post list is cleared out too
+  const postElement = document.querySelector(".postList");
+  postElement.innerHTML = "";
+} //this is the first register stuff
+applicationElement.addEventListener("click", event => {
+	event.preventDefault();
+	if (event.target.id === "register__submit") {
+	  //collect all the details into an object
+	  const userObject = {
+		name: document.querySelector("input[name='registerName']").value,
+		email: document.querySelector("input[name='registerEmail']").value
+	  }
+	  registerUser(userObject)
+	  .then(dbUserObj => {
+		sessionStorage.setItem("user", JSON.stringify(dbUserObj));
+		startGiffyGram();
+	  })
+	}
+  })
   applicationElement.addEventListener("click", event => {
 	event.preventDefault();
 	if (event.target.id.startsWith("updatePost")) {
 	  const postId = event.target.id.split("__")[1];
-	  //collect all the details into an object
 	  const title = document.querySelector("input[name='postTitle']").value
 	  const url = document.querySelector("input[name='postURL']").value
 	  const description = document.querySelector("textarea[name='postDescription']").value
@@ -143,25 +184,34 @@ const showPostEntry = () => {
 		timestamp: parseInt(timestamp),
 		id: parseInt(postId)
 	  }
-	  
+	
 	  updatePost(postObject)
 		.then(response => {
 		  showPostList();
+
 		})
 	}
   })
-  /*
-	This function performs one, specific task.
-
-	1. Can you explain what that task is?
-	2. Are you defining the function here or invoking it?
-*/
+  const showEdit = (postObj) => {
+	const entryElement = document.querySelector(".entryForm");
+	entryElement.innerHTML = PostEdit(postObj);
+  } 
+//down here to log out//
+applicationElement.addEventListener("click", event => {
+	if (event.target.id === "logout") {
+	  logoutUser();
+	  console.log(getLoggedInUser());
+	  sessionStorage.clear();
+	  checkForUser();
+	}
+  })
+//
 const startGiffyGram = () => {
 	showNavBar();
 	showPostEntry()
 	showPostList();
 	showFooter();
 }
-// Are you defining the function here or invoking it?
 startGiffyGram();
 deletePost();
+checkForUser();
