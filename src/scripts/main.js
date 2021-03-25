@@ -1,4 +1,4 @@
-import { getUsers, getPosts, usePostCollection, getLoggedInUser, logoutUser, createPost, setLoggedInUser, loginUser, registerUser } from "./data/DataManager.js";
+import { getUsers, getPosts, usePostCollection, getLoggedInUser, logoutUser, createPost, setLoggedInUser, loginUser, registerUser, postLike } from "./data/DataManager.js";
 import { PostList } from "./feed/PostList.js";
 import { NavBar } from "./nav/NavBar.js";
 import { Footer } from "./nav/Footer.js";
@@ -196,8 +196,22 @@ applicationElement.addEventListener("click", event => {
 	const entryElement = document.querySelector(".entryForm");
 	entryElement.innerHTML = PostEdit(postObj);
   } 
-//down here to log out//
-applicationElement.addEventListener("click", event => {
+  //down here to log out//
+  applicationElement.addEventListener("click", event => {
+	event.preventDefault();
+	if (event.target.id.startsWith("Like")) {
+		console.log("The BUTTON WAS CLICKED")
+	  const likeObject = {
+		 postId: parseInt(event.target.id.split("__")[1]),
+		 userId: getLoggedInUser().id
+	  }
+	  postLike(likeObject)
+		.then(response => {
+		  showPostList();
+		})
+	}
+  })
+  applicationElement.addEventListener("click", event => {
 	if (event.target.id === "logout") {
 	  logoutUser();
 	  console.log(getLoggedInUser());
@@ -213,5 +227,4 @@ const startGiffyGram = () => {
 	showFooter();
 }
 startGiffyGram();
-deletePost();
 checkForUser();
