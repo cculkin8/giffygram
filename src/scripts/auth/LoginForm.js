@@ -13,8 +13,8 @@ export const LoginForm = () => {
 				<input value=""
 					name="email"
 					class="newPost__input"
-					type="text"
-					placeholder="name@place.com" />
+					type="Password"
+					placeholder="name@place.com" />	
 			</div>
 
 			<button id="login__submit">Login</button>
