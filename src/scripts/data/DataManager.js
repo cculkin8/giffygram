@@ -45,7 +45,7 @@ export const logoutUser = () => {
 export const getLoggedInUser = () => {
 	return {...loggedInUser};
 }
-export const deletePost = postId => {
+export const deletePost = (postId) => {
 	return fetch(`http://localhost:8088/posts/${postId}`, {
 		method: "DELETE",
 		headers: {
@@ -108,4 +108,19 @@ export const getCreator = () => {
 		postCollection = parsedResponse
 		return parsedResponse;
 	  })
+  }
+  export const postLike = likeObject => {
+	return fetch(`http://localhost:8088/userLikes/`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(likeObject)
+	})
+		.then(response => response.json())
+		.then(getPosts)
+}
+export const getLikes = (postId) => {
+	return fetch(`http://localhost:8088/userLikes?postId=${postId}`)
+	  .then(response => response.json())
   }
